@@ -12,10 +12,16 @@ import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-const mewCycleFormValidationshema = zod.object
+const newCycleFormValidationshema = zod.object({
+  task: zod.string().min(1, 'informe a tarefa'),
+  minutesAmount: zod
+    .number()
+    .min(5, ,'O ciclo precisa ser de no mínimo 5 min')
+    .max(60, 'O ciclo precisa ser de no máximo 60 min'),
+})
 export function Home() {
-  const { register, handleSubmit, watch } = useForm({
-    resolver: zodResolver(),
+  const { register, handleSubmit, watch} = useForm({
+    resolver: zodResolver(newCycleFormValidationshema),
   })
   function handleCreateNewCycle(data) {
     console.log(data)
