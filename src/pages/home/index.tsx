@@ -9,9 +9,14 @@ import {
   TaskInput,
 } from './style'
 import { useForm } from 'react-hook-form'
+import * as zod from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
+const mewCycleFormValidationshema = zod.object
 export function Home() {
-  const { register, handleSubmit, watch } = useForm()
+  const { register, handleSubmit, watch } = useForm({
+    resolver: zodResolver(),
+  })
   function handleCreateNewCycle(data) {
     console.log(data)
   }
