@@ -19,11 +19,18 @@ const newCycleFormValidationshema = zod.object({
     .min(5, 'O ciclo precisa ser de no mínimo 5 min')
     .max(60, 'O ciclo precisa ser de no máximo 60 min'),
 })
+
+// inferir retirar
+type newCycleFormData = zod.infer<typeof newCycleFormValidationshema>
 export function Home() {
-  const { register, handleSubmit, watch } = useForm({
+  const { register, handleSubmit, watch } = useForm<newCycleFormData>({
     resolver: zodResolver(newCycleFormValidationshema),
+    defaultValues: {
+      task: '',
+      minutesAmount: 0,
+    },
   })
-  function handleCreateNewCycle(data) {
+  function handleCreateNewCycle(data: newCycleFormData) {
     console.log(data)
   }
   const task = watch('task')
