@@ -2,8 +2,10 @@ app de pomodoro(trabalhar numa tarefa, com foco e depois tirar um tempo para des
 ferramentas 
 --styled components
 --react hook form
+--@hookform/resolvers/zod
 --zod
 --react router Dom
 --context App do react
 --user educer
 --imutabilidade mais avançada(usando *imer)
+-- date-fns
