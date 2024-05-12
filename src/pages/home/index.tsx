@@ -1,4 +1,4 @@
-import { Play } from 'phosphor-react'
+import { Circle, Play } from 'phosphor-react'
 import {
   CountdownContainer,
   FormContainer,
@@ -11,6 +11,7 @@ import {
 import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
 
 const newCycleFormValidationshema = zod.object({
   task: zod.string().min(1, 'informe a tarefa'),
@@ -22,8 +23,15 @@ const newCycleFormValidationshema = zod.object({
 
 // inferir retirar
 type newCycleFormData = zod.infer<typeof newCycleFormValidationshema>
+interface cycle {
+  id: string
+  task: string
+  minutesAmount: number
+}
 export function Home() {
-  const { register, handleSubmit, watch } = useForm<newCycleFormData>({
+  const [cycles, setCycles] = useState<cycle[]>([])
+  const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
+  const { register, handleSubmit, watch, reset } = useForm<newCycleFormData>({
     resolver: zodResolver(newCycleFormValidationshema),
     defaultValues: {
       task: '',
@@ -31,8 +39,18 @@ export function Home() {
     },
   })
   function handleCreateNewCycle(data: newCycleFormData) {
-    console.log(data)
+    const id = String(new Date().getTime())
+    const newCycle: cycle = {
+      id,
+      task: data.task,
+      minutesAmount: data.minutesAmount,
+    }
+    setCycles((state) => [newCycle, ...state])
+    setActiveCycleId(id)
+    reset()
   }
+  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
+  console.log(activeCycle)
   const task = watch('task')
   const isSubmitDisabled = !task
   return (
