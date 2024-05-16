@@ -7,6 +7,9 @@ import {
 import { createContext, useState } from 'react'
 import { NewCycleContainer } from './components/new-cycle-form'
 import { Countdown } from './components/countdown'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import * as zod from 'zod'
 
 interface cycle {
   id: string
@@ -24,10 +27,27 @@ interface CyclesContextType {
 
 export const CycleContext = createContext({} as CyclesContextType)
 
+const newCycleFormValidationshema = zod.object({
+  task: zod.string().min(1, 'informe a tarefa'),
+  minutesAmount: zod
+    .number()
+    .min(1, 'O ciclo precisa ser de no mínimo 5 min')
+    .max(60, 'O ciclo precisa ser de no máximo 60 min'),
+})
+
+// inferir retirar
+type newCycleFormData = zod.infer<typeof newCycleFormValidationshema>
 export function Home() {
   const [cycles, setCycles] = useState<cycle[]>([])
   const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
 
+  const newCycleForm = useForm<newCycleFormData>({
+    resolver: zodResolver(newCycleFormValidationshema),
+    defaultValues: {
+      task: '',
+      minutesAmount: 0,
+    },
+  })
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
   function markCurrentCycleAsFinished() {
@@ -70,6 +90,9 @@ export function Home() {
   const task = watch('task')
   const isSubmitDisabled = !task
 
+  /** prop Drilling -> quando tem muita propriedade apenas para comunicação
+   * Context API -> permite a partilha de informações entre varios componentes ao mesmo tempo
+   */
   return (
     <HomeContainer>
       <form action="" onSubmit={handleSubmit(handleCreateNewCycle)}>
