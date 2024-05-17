@@ -8,7 +8,7 @@ import { createContext, useState } from 'react'
 import { NewCycleContainer } from './components/new-cycle-form'
 import { Countdown } from './components/countdown'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import * as zod from 'zod'
 
 interface cycle {
@@ -48,6 +48,7 @@ export function Home() {
       minutesAmount: 0,
     },
   })
+  const { handleSubmit, watch, reset } = newCycleForm
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
   function markCurrentCycleAsFinished() {
@@ -99,7 +100,9 @@ export function Home() {
         <CycleContext.Provider
           value={{ activeCycle, activeCycleId, markCurrentCycleAsFinished }}
         >
-          <NewCycleContainer />
+          <FormProvider {...newCycleForm}>
+            <NewCycleContainer />
+          </FormProvider>
           <Countdown />
         </CycleContext.Provider>
         {activeCycle ? (
