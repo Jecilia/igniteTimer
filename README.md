@@ -6,6 +6,7 @@ ferramentas
 --zod
 --react router Dom
 --context App do react
---user educer
+--usereducer
+--useeffect
 --imutabilidade mais avançada(usando *imer)
 -- date-fns

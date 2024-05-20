@@ -22,7 +22,9 @@ interface cycle {
 interface CyclesContextType {
   activeCycle: cycle | undefined
   activeCycleId: string | null
+  amountSecondsPassed: number
   markCurrentCycleAsFinished: () => void
+  setSecondsPassed: (seconds: number) => void
 }
 
 export const CycleContext = createContext({} as CyclesContextType)
@@ -40,6 +42,7 @@ type newCycleFormData = zod.infer<typeof newCycleFormValidationshema>
 export function Home() {
   const [cycles, setCycles] = useState<cycle[]>([])
   const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
+  const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
 
   const newCycleForm = useForm<newCycleFormData>({
     resolver: zodResolver(newCycleFormValidationshema),
@@ -50,6 +53,10 @@ export function Home() {
   })
   const { handleSubmit, watch, reset } = newCycleForm
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
+
+  function setSecondsPassed(seconds: number) {
+    setAmountSecondsPassed(seconds)
+  }
 
   function markCurrentCycleAsFinished() {
     setCycles((state) =>
@@ -98,7 +105,13 @@ export function Home() {
     <HomeContainer>
       <form action="" onSubmit={handleSubmit(handleCreateNewCycle)}>
         <CycleContext.Provider
-          value={{ activeCycle, activeCycleId, markCurrentCycleAsFinished }}
+          value={{
+            activeCycle,
+            activeCycleId,
+            markCurrentCycleAsFinished,
+            amountSecondsPassed,
+            setSecondsPassed,
+          }}
         >
           <FormProvider {...newCycleForm}>
             <NewCycleContainer />
@@ -108,7 +121,7 @@ export function Home() {
         {activeCycle ? (
           <StopCountdownButton onClick={handleInterruptCycle} type="button">
             <HandPalm size={24} />
-            interromper
+            Interromper
           </StopCountdownButton>
         ) : (
           <StartCountdownButton type="submit" disabled={isSubmitDisabled}>
