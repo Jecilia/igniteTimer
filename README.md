@@ -8,5 +8,5 @@ ferramentas
 --context App do react
 --usereducer
 --useeffect
---imutabilidade mais avançada(usando *imer)
+--imutabilidade mais avançada(usando *immer)
 -- date-fns
