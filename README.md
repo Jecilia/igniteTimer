@@ -5,8 +5,8 @@ ferramentas
 --@hookform/resolvers/zod
 --zod
 --react router Dom
---context App do react
+--context App **do** react
 --usereducer
 --useeffect
---imutabilidade mais avançada(usando *immer)
+--imutabilidade mais avançada(usando biblioteca *immerjs )
 -- date-fns
