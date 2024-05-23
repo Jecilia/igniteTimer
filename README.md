@@ -20,8 +20,8 @@ O **Ignite Timer** é uma aplicação projetada para ajudar você a aumentar sua
 Aqui estão algumas screenshots do projeto:
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="./src/assets/Screenshot (227).png" alt="Screenshot 1" width="450">
-  <img src="./src/assets/Screenshot (228).png" alt="Screenshot 2" width="500">
+  <img src="./src/assets/Screenshot (227).png" alt="Screenshot 1" width="600">
+  <img src="./src/assets/Screenshot (228).png" alt="Screenshot 2" width="600">
 </div>
 
 ## 🎥 Demo
