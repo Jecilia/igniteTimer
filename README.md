@@ -73,6 +73,7 @@ Durante o desenvolvimento deste projeto, tive a oportunidade de consolidar os se
 
 Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests ou abrir issues se tiver sugestões, correções ou qualquer outra forma de contribuição.
 
+[Certificado](https://app.rocketseat.com.br/certificates/03c97875-b19a-4e4a-b21f-b43e00c94225).
 ## ✨ Autora
 [Jecilia_Teixeira🌺 🌟](https://github.com/jecilia)
 
